@@ -1,0 +1,53 @@
+openapi: '3.0.2'
+info:
+  description: Third Library API
+  title: General API for the Library
+  version: "1.0.0"
+servers:
+- url: /api/v1/
+
+components:
+  schemas:
+    OldProjectDemo:
+      type: object
+      properties:
+        autoEnroll:
+          type: boolean
+        id:
+          type: integer
+        org:
+          type: integer
+        programID:
+          type: string
+        projectName:
+          type: string
+        projectNumber:
+          type: string
+        templateName:
+          type: string
+
+paths:
+  /test:
+    get:
+      description: Test endpoint for development. TODO- DELETE THIS
+      tags:
+        - Development
+      operationId: v1.general.test
+      parameters:
+        - in: query
+          name: name
+          required: true
+          schema:
+            type: string
+            minimum: 1
+            maximum: 50
+      responses:
+        200:
+          description: Hello world!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
