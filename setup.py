@@ -24,6 +24,8 @@ VERSION = '0.1.0'
 REQUIRED = [
     'flask',
     'connexion',
+    'beautifulsoup4',
+    'lxml'
 ]
 
 # What packages are optional?

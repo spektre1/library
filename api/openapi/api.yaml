@@ -8,23 +8,32 @@ servers:
 
 components:
   schemas:
-    OldProjectDemo:
+    Book:
+      description: Represents a book in search results
       type: object
       properties:
-        autoEnroll:
-          type: boolean
-        id:
+        title:
+          type: string
+        author:
+          type: string
+        pubDate:
+          type: string
+          format: date-time
+        publisher:
+          type: string
+    SearchResults:
+      description: Search results containing found books and metadata about search.
+      type: object
+      properties:
+        count:
           type: integer
-        org:
-          type: integer
-        programID:
-          type: string
-        projectName:
-          type: string
-        projectNumber:
-          type: string
-        templateName:
-          type: string
+        query:
+          type: object
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Book'
+    SearchQuery:
 
 paths:
   /test:
@@ -51,3 +60,30 @@ paths:
                 properties:
                   response:
                     type: string
+
+  /search:
+    get:
+      description: Search for books.
+      tags:
+        - Search
+      parameters:
+        - in: query
+          name: q
+          required: true
+      responses:
+        200:
+          description: Search results
+        400:
+          description: Bad request
+        404:
+          description: Not found
+
+  /license:
+    get:
+      description: Get the license for a particular book
+      tags:
+        - License
+      parameters:
+        - in: path
+          name: uuid
+          required: true
