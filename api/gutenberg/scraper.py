@@ -34,31 +34,32 @@ def getTopTitles():
     return topTitles
 
 
-def parseBookInfo():
+def parseBookInfo(bookID:int):
     """Get Bibliographic record data about a book."""
+    bookID = str(bookID) if isinstance(bookID, int) else bookID
     URLBookPrefix = 'https://www.gutenberg.org/ebooks/'
-    bookID = 140 # Upton Sinclair, the Jungle
-    resp = requests.get(URLBookPrefix + str(bookID))
+    resp = requests.get(URLBookPrefix + bookID)
     soup = BSoup(resp.content, 'lxml-xml')
 
-    d = soup.find(id="bibrec")
+    bookMeta = {}
+    bookMeta['coverImgURL'] = soup.find(id="cover").img['src']
+    bookMeta['textURL'] = soup.find(id='download').find(
+        string=re.compile("Plain Text")).parent['href']
 
-    trs = d.table.find_all('tr')
-
-    kv = {}
-    kv['Subject'] = []
+    # Get biblographic record:
+    trs = soup.find(id="bibrec").table.find_all('tr')
     for tr in trs:
         if tr.td and tr.th:
             # This is a generalized way to append multiple Subjects onto a
             # list in the returned dict
             value = tr.td.get_text().strip()
             key = tr.th.get_text()
-            if key in kv:
-                if isinstance(kv[key], list):
-                    kv[key].append(value)
+            if key in bookMeta:
+                if isinstance(bookMeta[key], list):
+                    bookMeta[key].append(value)
                 else:
-                    kv[key] = [kv[key], value]
+                    bookMeta[key] = [bookMeta[key], value]
             else:
-                kv[key] = value
-    return kv
+                bookMeta[key] = value
+    return bookMeta
 
