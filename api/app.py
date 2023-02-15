@@ -1,13 +1,20 @@
 import connexion
 import sys
 from flask import jsonify
+from flask_sqlalchemy import SQLAlchemy
 
-app = connexion.App(__name__, specification_dir='openapi/')
+connexionApp = connexion.App(__name__, specification_dir='openapi/')
+app = connexionApp.app
 
-print(sys.path)
+connexionApp.add_api('api.yaml')
 
-app.add_api('api.yaml')
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///example.sqlite"
 
+db = SQLAlchemy(app)
+
+# NOTE: Must import Models before this!
+with app.app_context():
+    db.create_all()
 
 @app.route("/")
 def hello_world():

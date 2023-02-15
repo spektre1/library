@@ -33,7 +33,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Book'
-    SearchQuery:
 
 paths:
   /test:
@@ -66,10 +65,12 @@ paths:
       description: Search for books.
       tags:
         - Search
+      operationId: v1.general.search
       parameters:
         - in: query
           name: q
-          required: true
+          schema:
+            type: string
       responses:
         200:
           description: Search results
@@ -83,7 +84,17 @@ paths:
       description: Get the license for a particular book
       tags:
         - License
+      operationId: v1.general.license
       parameters:
         - in: path
           name: uuid
           required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Got License
+        400:
+          description: Bad request
+        404:
+          description: License not available
