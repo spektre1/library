@@ -25,6 +25,7 @@ REQUIRED = [
     'flask',
     'connexion',
     'Flask-SQLAlchemy',
+    'Flask-Migrate',
     'beautifulsoup4',
     'lxml',
 ]
