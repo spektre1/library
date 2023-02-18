@@ -28,6 +28,7 @@ REQUIRED = [
     'Flask-Migrate',
     'beautifulsoup4',
     'lxml',
+    'dependency-injector'
 ]
 
 # What packages are optional?

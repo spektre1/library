@@ -1,4 +1,5 @@
 import sqlalchemy as sa
+from db import db
 
 class Book(db.Model):
     id = sa.Column(sa.Integer, primary_key=True)

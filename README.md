@@ -18,16 +18,13 @@ Setup with `venv/` subdir in project.
 TODO: Create an install script.
 
 
-## TODO: Features
+## Getting Started
 
-* Search interface
-  * pagination
-* Book delivery
-  * UUID? Or Title based URL?
-  * How are we licensing?
-* Admin
-  * Add/Remove Books
-  * Categorize/tag
-  * Mark unlendable/disabled/etc?
+This application is structured in a common pattern, using Flask with
+Connexion, SQLAlchemy, and Alembic to keep the data models in sync as the system
+grows in complexity. 
 
+dependency-injector? YES
 
+Connexion is for the public facing API,
+flask blueprints and hardcoded endpoints is for Admin UI interface
