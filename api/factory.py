@@ -22,9 +22,10 @@ def register_blueprints(app:Flask) -> None:
 def setup_db(app:Flask, db:SQLAlchemy) -> None:
     """SQLAlchemy manages DB."""
     db.init_app(app)
-    migrate = Migrate(app, db)
+    # Will need this for perm db:
+    # migrate = Migrate(app, db)
     with app.app_context():  # Register DB Models
-        db.drop_all()
+        db.drop_all()  #TODO: Get rid of this for perm db
         db.create_all()
 
 
