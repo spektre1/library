@@ -1,4 +1,4 @@
-"""Views."""
+"""Hardcoded Flask views."""
 
 from flask import Blueprint
 #TODO: Needs blueprint

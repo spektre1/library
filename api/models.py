@@ -1,3 +1,5 @@
+"""SQLAlchemy Database models."""
+
 import sqlalchemy as sa
 from db import db
 

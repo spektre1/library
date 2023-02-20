@@ -1,3 +1,6 @@
+"""Factory that constructs the Flask application, assembling all the
+components."""
+
 import connexion
 import sys
 from flask import jsonify, Flask
@@ -28,6 +31,7 @@ def create_app(db) -> Flask:
     connexionApp = connexion.App(__name__, specification_dir='openapi/')
     register_apis(connexionApp)
     app = connexionApp.app
+    app.container = container
     register_blueprints(app)
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///example.sqlite"

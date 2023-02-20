@@ -98,3 +98,15 @@ paths:
           description: Bad request
         404:
           description: License not available
+
+  /book/add:
+    post:
+      description: Import a book to the database
+      tags:
+        - Book
+      operationId: v1.book.add
+      responses:
+        200:
+          description: Book successfully imported
+        400:
+          description: Bad request
