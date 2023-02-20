@@ -13,15 +13,10 @@ props = [
 def add():
     """Adds a book to the library db."""
     j = request.json
-    book = Book(
-        title=j['Title'],
-        author=j['Author'],
-        text_url=j['textURL'],
-        cover_url=j['coverImgURL']
-    )
+    book = Book(**{k: j[k] for k in props})
     db.session.add(book)
     db.session.commit()
-    return f"Successfully uploaded #{book.id} - {j['Title']}"
+    return f"Successfully uploaded #{book.id} - {j['title']}"
 
 
 def get(id:int):

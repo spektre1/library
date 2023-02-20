@@ -61,8 +61,8 @@ class Gutenberg():
         soup = BSoup(resp.content, 'lxml-xml')
 
         bookMeta = {
-            'coverImgURL': soup.find(id="cover").img['src'],
-            'textURL': soup.find(id='download').find(
+            'cover_url': soup.find(id="cover").img['src'],
+            'text_url': soup.find(id='download').find(
                 string=re.compile("Plain Text")).parent['href']
         }
 
@@ -70,6 +70,6 @@ class Gutenberg():
         for tr in soup.find(id="bibrec").table.find_all('tr'):
             if tr.td and tr.th:
                 assignToDictAsList(bookMeta,
-                    tr.th.get_text(),
+                    tr.th.get_text().strip().lower(),
                     tr.td.get_text().strip())
         return bookMeta
