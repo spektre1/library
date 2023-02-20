@@ -1,3 +1,5 @@
 venv/
 __pycache__
 instance/
+
+gutenberg100.json
