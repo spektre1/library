@@ -10,4 +10,8 @@ if ($env:PYTHONPATH) {
 } else {
     $env:PYTHONPATH += ';' + $PyPaths
 }
+
+
+$env:FLASK_DEBUG='1'
+
 python3 D:\usr\dmacdonald\source\repos\library\api\app.py

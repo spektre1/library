@@ -5,3 +5,4 @@ Flask-Migrate
 beautifulsoup4
 lxml
 dependency-injector
+swagger-ui-bundle
