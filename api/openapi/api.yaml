@@ -99,6 +99,27 @@ paths:
         404:
           description: License not available
 
+  /book/{id}:
+    get:
+      description: Get book by ID
+      tags:
+        - Book
+      operationId: v1.book.get
+      parameters:
+        - name: id
+          in: path
+          description: ID of book to get
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Book Found
+        400:
+          description: Bad Request
+        404:
+          description: ID not found
+
   /book/add:
     post:
       description: Import a book to the database
