@@ -6,8 +6,7 @@ import sys
 from flask import jsonify, Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from .containers import Container
-from . import models
+from containers import Container
 
 def register_apis(connexionApp) -> None:
     """Public facing APIs managed by Connexion."""
@@ -15,7 +14,7 @@ def register_apis(connexionApp) -> None:
 
 def register_blueprints(app:Flask) -> None:
     """Admin UI managed by Flask Blueprints."""
-    from .views import admin_bp
+    from views import admin_bp
     app.register_blueprint(admin_bp)
 
 def setup_db(app, db):

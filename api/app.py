@@ -1,6 +1,6 @@
 """This is the file that is found by Flask to start the app."""
 
-from .factory import create_app
+from factory import create_app
 from db import db
 
 app = create_app(db)

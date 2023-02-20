@@ -4,5 +4,7 @@ from flask import request
 
 def add():
     """Adds a book to the library db."""
-    print("Add called, JSON is: ", request.json)
+    j = request.json
+    print(j)
+    return f"Successfully uploaded{j['Title']}"
 
