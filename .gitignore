@@ -3,3 +3,4 @@ __pycache__
 instance/
 
 gutenberg100.json
+library.sqlite

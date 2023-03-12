@@ -3,11 +3,9 @@
 import sqlalchemy as sa
 from sqlalchemy import Integer, String, ForeignKey, Column, Table
 from typing import List, Optional
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from db import db
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from db import db, Base
 
-class Base(DeclarativeBase):
-    pass
 
 # Represents the relationship of authors to a book.
 book_authors = Table(
@@ -33,3 +31,4 @@ class Book(Base):
     author: Mapped[List["Author"]] = relationship('Author', secondary=book_authors, backref='books')
     text_url: Mapped[str]
     cover_url: Mapped[Optional[str]]
+
