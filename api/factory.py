@@ -6,7 +6,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from containers import Container
-from db import createSchema
+# from db import createSchema
 
 def register_apis(connexionApp:connexion.App) -> None:
     """Public facing APIs managed by Connexion."""
@@ -21,11 +21,11 @@ def register_blueprints(app:Flask) -> None:
 
 def setup_db(app:Flask, db:SQLAlchemy) -> None:
     """SQLAlchemy manages DB."""
-    from models import Author, Book
+    from models import db
     db.init_app(app)
+    # createSchema()
     # Will need this for perm db:
     # migrate = Migrate(app, db)
-    createSchema()
     # with app.app_context():  # Register DB Models
     #     db.drop_all()  #TODO: Get rid of this for perm db
     #     db.create_all()
@@ -40,6 +40,6 @@ def create_app(db:SQLAlchemy) -> Flask:
     register_blueprints(app)
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///example.sqlite"
-    setup_db(app, db)
+    # setup_db(app, db)
     print(f"Database: {db}")
     return app
