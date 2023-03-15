@@ -7,6 +7,9 @@ G = Gutenberg()
 
 titles = G.getTopTitles()
 
+# Wittgenstein doesn't have a plaintext file:
+# G.getBookInfo(titles[71][3])
+
 bookInfo = []
 for title in titles:
     bookInfo.append(G.getBookInfo(title[3]))

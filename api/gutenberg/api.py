@@ -61,11 +61,14 @@ class Gutenberg():
         soup = BSoup(resp.content, 'lxml-xml')
 
         bookMeta = {
-            'cover_url': soup.find(id="cover").img['src'],
-            'text_url': soup.find(id='download').find(
-                string=re.compile("Plain Text")).parent['href']
-        }
-
+            'cover_url': soup.find(id="cover").img['src']}
+        
+        plainTextURL = soup.find(id='download').find(string=re.compile("Plain Text"))
+        if plainTextURL:
+            bookMeta['text_url'] = plainTextURL.parent['href']
+        else:
+            print(f"For BookID {bookID} no PlainText source found.")
+            return
         # Get biblographic record:
         for tr in soup.find(id="bibrec").table.find_all('tr'):
             if tr.td and tr.th:
