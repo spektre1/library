@@ -15,7 +15,7 @@ db_session = scoped_session(
 
 Base = declarative_base()
 Base.query = db_session.query_property()
-
+Base.session = db_session
 
 # Represents the relationship of authors to a book.
 book_authors = Table(

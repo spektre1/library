@@ -9,7 +9,7 @@ import requests
 import re
 
 
-def assignToDictAsList(dictionary, key, value):
+def assignToDictAsList(dictionary:dict, key:str, value):
     """If we try to assign a value to a key in a dict that already exists,
     instead turn that value into a list if it isn't yet, then append the value
     to the list.
@@ -25,10 +25,15 @@ def assignToDictAsList(dictionary, key, value):
 
 class Gutenberg():
     baseURL = 'https://www.gutenberg.org/'
+    cacheDir = 'cache'
 
-    def get(self, url):
+    def __init__(self):
+        self.session = requests.Session()
+        self.session.head(self.baseURL, allow_redirects=True)
+
+    def get(self, url:str) -> requests.Response:
         """Abstracting this to do sessions. TODO: add session logic from ameliaPy."""
-        return requests.get(self.baseURL + url)
+        return self.session.get(self.baseURL + url)
 
     def getTopTitles(self) -> list[tuple[str, str, str, str]]:
         """Reads URLTopList and gets last 30 days top 100 titles.
@@ -54,7 +59,7 @@ class Gutenberg():
                     topTitles.append((*data, bookID)) # This is recomposing a tuple
         return topTitles
 
-    def getBookInfo(self, bookID:int):
+    def getBookInfo(self, bookID:int) -> dict:
         """Get Bibliographic record data about a book."""
         bookID = str(bookID) if isinstance(bookID, int) else bookID
         resp = self.get('ebooks/' + bookID)
@@ -76,3 +81,9 @@ class Gutenberg():
                     tr.th.get_text().strip().lower(),
                     tr.td.get_text().strip())
         return bookMeta
+
+    def cacheBook(self, url:str, filename:str) -> None:
+        """Downloads the text of a book and writes bytes to file."""
+        resp = self.get(self.baseURL + url.lstrip('/'))
+        with open(self.cacheDir + '/' + filename, 'wb') as f:
+            f.write(resp.content)

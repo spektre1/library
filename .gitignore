@@ -1,6 +1,7 @@
 venv/
 __pycache__
 instance/
+cache/
 
 gutenberg100.json
 library.sqlite

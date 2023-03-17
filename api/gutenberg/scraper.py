@@ -1,5 +1,8 @@
 """This scrapes the top 100 books of the last 30 days, and writes a json
-file with their biblographic record."""
+file with their biblographic record.
+
+
+"""
 from gutenberg.api import Gutenberg
 import json
 
@@ -22,3 +25,7 @@ for book in bookInfo:
 # Write bookInfo to file:
 with open('gutenberg100.json', 'w') as f:
     f.write(json.dumps(bookInfo, sort_keys=True, indent=2))
+
+# Let's download a copy of all the books/cover images:
+for book in bookInfo:
+    G.cacheBook(book['text_url'], book['ebook-no.'] + '.txt')
