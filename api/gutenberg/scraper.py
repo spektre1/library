@@ -14,6 +14,11 @@ bookInfo = []
 for title in titles:
     bookInfo.append(G.getBookInfo(title[3]))
 
+# make all authors lists, API expects this
+for book in bookInfo:
+    if isinstance(book['author'], str):
+        book['author'] = [book['author']]
+
 # Write bookInfo to file:
 with open('gutenberg100.json', 'w') as f:
     f.write(json.dumps(bookInfo, sort_keys=True, indent=2))
